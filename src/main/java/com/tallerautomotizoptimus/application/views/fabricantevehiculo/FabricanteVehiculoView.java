@@ -1,7 +1,6 @@
 package com.tallerautomotizoptimus.application.views.fabricantevehiculo;
 
-import com.tallerautomotizoptimus.application.data.entity.SamplePerson;
-import com.tallerautomotizoptimus.application.data.service.SamplePersonService;
+
 import com.tallerautomotizoptimus.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -26,7 +25,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "fabricanteVehiculo", layout = MainLayout.class)
 @Uses(Icon.class)
 public class FabricanteVehiculoView extends Div {
-
+/*
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
     private EmailField email = new EmailField("Email address");
@@ -122,5 +121,5 @@ public class FabricanteVehiculoView extends Div {
             }
         }
     }
-
+*/
 }
