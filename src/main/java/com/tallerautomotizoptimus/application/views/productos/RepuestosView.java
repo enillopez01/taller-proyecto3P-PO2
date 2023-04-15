@@ -17,12 +17,14 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.combobox.ComboBox.ItemFilter;
+import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.grid.contextmenu.GridContextMenu;
+import com.vaadin.flow.component.grid.contextmenu.GridMenuItem;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -45,12 +47,13 @@ import com.vaadin.flow.router.RouteAlias;
 @Uses(Icon.class)
 public class RepuestosView extends Div implements BeforeEnterObserver, RepuestosViewModel {
 
-    private final String REPUESTO_ID = "repuestoID";
+    private static final long serialVersionUID = 1L;
+	private final String REPUESTO_ID = "repuestoID";
     private final String REPUESTO_EDIT_ROUTE_TEMPLATE = "productos/%s/edit";
 
     private final Grid<Repuesto> grid = new Grid<>(Repuesto.class, false);
     
-    private NumberField idrepuesto;
+    //private NumberField idrepuesto;
     private TextField nombre;
     private TextField numeroserie;
     private NumberField cantidad;
@@ -59,7 +62,7 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
 	private TextField aniovehiculo;
 	private TextArea compvehiculo;
 	private TextField marca;
-	private ComboBox<String> cmarca;
+	private ComboBox<MarcaRepuesto> cmarca;
 	private TextField clasificacion;
 	private TextField fabricante;
     
@@ -72,8 +75,9 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
     private RepuestoInteractor controlador;
     private List<Repuesto> repuestos;
     
-    private MarcaRepuestosInteractor controlador2;
-    private List<MarcaRepuesto> marcas;
+    private MarcaRepuesto marcarepuesto;
+    
+    private List<MarcaRepuesto> marcaa;
    
 
     public RepuestosView() {
@@ -119,15 +123,16 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
             }
         });
         
-        /*
-         * GridContextMenu<Repuesto> menu = grid.addContextMenu();
+        
+         GridContextMenu<Repuesto> menu = grid.addContextMenu();
 		    
+        GridMenuItem<Repuesto> delete = menu.addItem("Eliminar", event -> {	
         	if (event != null && event.getItem() != null) {
-        		Repuesto prodEliminar = event.getItem().get();
+        		Repuesto repuestoEliminar = event.getItem().get();
         		
         		ConfirmDialog dialog = new ConfirmDialog();
-                dialog.setHeader("¿Eliminar \'"+prodEliminar.getNombre() + "("+prodEliminar.getNumeroserie()+")\'?");
-                dialog.setText("¿Estás seguro de que deseas eliminar de forma permanente este producto?");
+                dialog.setHeader("¿Eliminar \'"+repuestoEliminar.getNombre() + "("+repuestoEliminar.getNumeroserie()+")\'?");
+                dialog.setText("¿Estás seguro de que deseas eliminar de forma permanente este Repuesto?");
 
                 dialog.setCancelable(true);
 
@@ -136,17 +141,19 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
                 dialog.setConfirmButtonTheme("error primary");
 
                 dialog.addConfirmListener(eventDialog -> {
-                	controlador.eliminarProducto(prodEliminar);
+                
                 });
         		
                 dialog.open();
         	}
         });
+        
         delete.addComponentAsFirst(createIcon(VaadinIcon.TRASH));
         
-        */
+        
         consultarRepuestos();
-
+        consultarMarcas();
+        
         cancelar.addClickListener(e -> {
             clearForm();
             refreshGrid();
@@ -176,9 +183,8 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
     	controlador.consultarRepuestos();		
 	}
     
-    
     private void consultarMarcas() {
-    	controlador2.consultarMarcas();
+    	controlador.consultarMarcas();
     }
 
 
@@ -252,13 +258,16 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
         compvehiculo.addValueChangeListener(e -> {
             e.getSource().setHelperText(e.getValue().length() + "/" + charLimit);
         });
-                
+         
+      
         marca = new TextField();
         marca.setLabel("Marca");
         
-        //cmarca = new ComboBox<>();
-        //cmarca.setItems(filter, controlador2.consultarMarcas());
-        //cmarca.setLabel("Marca");
+        
+        cmarca = new ComboBox<>();
+        cmarca.setLabel("Marcas");
+        cmarca.setItemLabelGenerator(MarcaRepuesto::getNombremarca);
+        
         
         clasificacion = new TextField();
         clasificacion.setLabel("Clasificacion");
@@ -269,7 +278,7 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
         
         
         formLayout.add(nombre, numeroserie, cantidad, preciocosto, precio,
-        		aniovehiculo, compvehiculo, marca, clasificacion, fabricante);
+        		aniovehiculo, compvehiculo, cmarca, clasificacion, fabricante);
 
         editorDiv.add(formLayout);
         createButtonLayout(editorLayoutDiv);
@@ -300,11 +309,12 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
 
     private void clearForm() {
         populateForm(null);
+        cmarca.setValue(null);
     }
 
-    private void populateForm(Repuesto value) {
+    private void populateForm(Repuesto value, MarcaRepuesto value2) {
         this.repuesto = value;
-        if (value == null) {
+        if (value == null && value2 == null) {
         	//idrepuesto.setValue("");
         	nombre.setValue("");
         	numeroserie.setValue("");
@@ -314,6 +324,7 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
         	aniovehiculo.setValue("");
         	compvehiculo.setValue("");
         	marca.setValue("");
+        	cmarca.setValue(null);
         	clasificacion.setValue("");
         	fabricante.setValue("");
         	
@@ -328,13 +339,15 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
         	aniovehiculo.setValue(value.getAniovehiculo());
         	compvehiculo.setValue(value.getCompvehiculo());
         	marca.setValue(value.getMarca());
+        	cmarca.setValue(value2.getNombremarca());
         	clasificacion.setValue(value.getClasificacion());
         	fabricante.setValue(value.getFabricante());
-        	
-        	
         }
-        
-
+     }
+    
+    private void populateForm2(MarcaRepuesto value) {
+    	this.marcarepuesto = value;
+    	
     }
 
 	@Override
@@ -344,7 +357,16 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
 		this.repuestos = repuesto;
 	}
 
-
+	@Override
+	public void refrescarMarca(List<MarcaRepuesto> marcas) {
+		Collection<MarcaRepuesto> collectionItems = marcas;
+		cmarca.setItems(collectionItems);
+		//this.marcaa = marcas;
+		
+	}
+	
+ 
+	
 	@Override
 	public void msjCrearRepuesto(Repuesto nuevo, String mensaje) {
 		// TODO Auto-generated method stub
@@ -364,4 +386,9 @@ public class RepuestosView extends Div implements BeforeEnterObserver, Repuestos
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+
+	
 }

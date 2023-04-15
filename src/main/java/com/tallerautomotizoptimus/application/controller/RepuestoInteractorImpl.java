@@ -2,6 +2,7 @@ package com.tallerautomotizoptimus.application.controller;
 
 import java.io.IOException;
 
+import com.tallerautomotizoptimus.application.data.entity.MarcaRepuestoResponse;
 import com.tallerautomotizoptimus.application.data.entity.Repuesto;
 import com.tallerautomotizoptimus.application.data.entity.RepuestoResponse;
 import com.tallerautomotizoptimus.application.data.service.DataBaseRepositoryImpl;
@@ -49,6 +50,21 @@ public class RepuestoInteractorImpl implements RepuestoInteractor {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	
+	
+	//TBL MARAC REPUESTOS PARA LISTA COMBOBOX
+	@Override
+	public void consultarMarcas() {
+		try {
+			MarcaRepuestoResponse respuesta = this.modelo.consultarmarcas();
+			this.vista.refrescarMarca(respuesta.getItems());			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		 
 		
 	}
 

@@ -7,9 +7,11 @@ import java.util.Optional;
 
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 
+
 import com.tallerautomotizoptimus.application.controller.MarcaRepuestosInteractor;
 import com.tallerautomotizoptimus.application.controller.MarcaRepuestosInteractorImpl;
 import com.tallerautomotizoptimus.application.data.entity.MarcaRepuesto;
+import com.tallerautomotizoptimus.application.data.service.ReportGenerator;
 import com.tallerautomotizoptimus.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -99,9 +101,7 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
         	
         	}
         });
-        
-        menu.add(new Hr());
-        GridMenuItem<MarcaRepuesto> eliminar = menu.addItem("Eliminar", event -> {
+           GridMenuItem<MarcaRepuesto> eliminar = menu.addItem("Eliminar", event -> {
         	if (event != null && event.getItem() != null) {
         		MarcaRepuesto marcaEliminar = event.getItem().get();
         		
@@ -122,7 +122,14 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
         		
                 dialog.open();
         	}
-        });editar.addComponentAsFirst(createIcon(VaadinIcon.EDIT));
+        });
+        menu.add(new Hr());   
+        GridMenuItem<MarcaRepuesto> reporte = menu.addItem("Reporte", event -> {
+        	Notification.show("Generando Reporte");
+        	generarReporte();
+        });
+        reporte.addComponentAsFirst(createIcon(VaadinIcon.PRINT));
+        editar.addComponentAsFirst(createIcon(VaadinIcon.EDIT));
         eliminar.addComponentAsFirst(createIcon(VaadinIcon.TRASH));
         
         
@@ -167,6 +174,13 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
             } 
         });
     }
+    
+    
+    private void generarReporte() {
+    	ReportGenerator generador = new ReportGenerator();
+    	
+    }
+    
 
     private void consultarMarcas() {
 		controlador.consultarMarcas();
