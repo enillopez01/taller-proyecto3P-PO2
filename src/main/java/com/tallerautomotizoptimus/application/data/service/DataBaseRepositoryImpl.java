@@ -46,10 +46,22 @@ public class DataBaseRepositoryImpl {
 		}
 	}
 	
-	/*
+	
 	public boolean crearRepuesto(Repuesto nuevo) throws IOException {
+		Call<ResponseBody> call = client.getDatabaseService().crearRepuesto(nuevo);
+		Response<ResponseBody> respuesta = call.execute();
 		
-	}*/
+		return respuesta.isSuccessful();
+		
+	}
+	
+	public boolean actualizarRepuesto(Repuesto actualizar) throws IOException {
+		Call<ResponseBody> call = client.getDatabaseService().actualizarRepuesto(actualizar);
+		Response<ResponseBody> respuesta = call.execute();
+		
+		return respuesta.isSuccessful();
+	}
+	
 	
 	public boolean eliminarRepuesto(Integer idRepuesto) throws IOException {
 		Call<ResponseBody> call = client.getDatabaseService().eliminarRepuesto(idRepuesto);

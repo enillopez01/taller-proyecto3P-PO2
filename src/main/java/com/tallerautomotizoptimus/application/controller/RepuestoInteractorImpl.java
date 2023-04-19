@@ -32,13 +32,24 @@ public class RepuestoInteractorImpl implements RepuestoInteractor {
 
 	@Override
 	public void crearRepuestos(Repuesto nuevo) {
-		
+		try {
+			boolean creado = this.modelo.crearRepuesto(nuevo);
+			String mensaje = creado?"El repuesto fue creado correctamente":"Hubo un inconveniente al crear el repuesto";
+			this.vista.msjCrearRepuesto(nuevo, mensaje);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void actualizarRepuestos(Repuesto nuevo) {
-		
-		
+	public void actualizarRepuestos(Repuesto actualizar) {
+		try {
+		boolean actualiza = this.modelo.actualizarRepuesto(actualizar);
+		String mensaje = actualiza?"Los datos se actualizaron con exito":"Hubo un inconveniente en la actualizacion";
+		this.vista.msjActualizarRepuesto(actualizar, mensaje);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -54,19 +65,6 @@ public class RepuestoInteractorImpl implements RepuestoInteractor {
 	}
 
 	
-	
-	//TBL MARAC REPUESTOS PARA LISTA COMBOBOX
-	@Override
-	public void consultarMarcas() {
-		try {
-			MarcaRepuestoResponse respuesta = this.modelo.consultarmarcas();
-			this.vista.refrescarMarca(respuesta.getItems());			
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		 
-		
-	}
 
 
 	

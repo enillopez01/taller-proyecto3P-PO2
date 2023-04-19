@@ -2,6 +2,7 @@ package com.tallerautomotizoptimus.application.data.service;
 
 import com.tallerautomotizoptimus.application.data.entity.MarcaRepuesto;
 import com.tallerautomotizoptimus.application.data.entity.MarcaRepuestoResponse;
+import com.tallerautomotizoptimus.application.data.entity.Repuesto;
 import com.tallerautomotizoptimus.application.data.entity.RepuestoResponse;
 
 import okhttp3.ResponseBody;
@@ -29,14 +30,14 @@ public interface DataBaseRepository {
 		"User-Agent: Retrofit-Sample-App"
 	})
 	@POST("/pls/apex/pav2_201610070128/tallervehiculo/repuestos")
-	Call<ResponseBody> crearRepuesto(@Body MarcaRepuesto nuevo);
+	Call<ResponseBody> crearRepuesto(@Body Repuesto nuevo);
 
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
 	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/repuestos")
-	Call<ResponseBody> actualizarRepuesto(@Body MarcaRepuesto nuevo);	
+	Call<ResponseBody> actualizarRepuesto(@Body Repuesto nuevo);	
 	
 	@Headers({ 
 		"Accept: application/json", 

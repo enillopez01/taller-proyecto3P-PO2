@@ -5,7 +5,6 @@ import com.tallerautomotizoptimus.application.data.entity.Repuesto;
 public interface RepuestoInteractor {
 	
 	void consultarRepuestos();
-	void consultarMarcas();
 	void crearRepuestos(Repuesto nuevo);
 	void actualizarRepuestos(Repuesto nuevo);
 	void eliminarRepuestos(Repuesto nuevo);

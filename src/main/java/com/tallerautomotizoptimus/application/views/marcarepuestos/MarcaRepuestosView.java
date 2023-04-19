@@ -43,10 +43,11 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Marca Repuestos")
 @Route(value = "marcaRepuestos/:marcarepuestoID?/:action?(edit)", layout = MainLayout.class)
 @Uses(Icon.class)
-public class MarcaRepuestosView extends Div implements BeforeEnterObserver, MarcaRepuestosViewModel {
-	
+public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
+//BeforeEnterObserver, 	
 
-    private final String MARCAREPUESTO_ID = "marcarepuestoID";
+    private static final long serialVersionUID = 1L;
+	private final String MARCAREPUESTO_ID = "marcarepuestoID";
     private final String MARCAREPUESTO_EDIT_ROUTE_TEMPLATE = "marcaRepuestos/%s/edit";
 
     private final Grid<MarcaRepuesto> grid = new Grid<>(MarcaRepuesto.class, false);
@@ -153,6 +154,7 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
                     	Notification.show("El nombre de la Marca es requerido, favor ingresar la información");
                     }else {
                     	controlador.crearMarca(marcarepuesto);
+                    	Notification.show("Dato Creado con Exito");
                     }
                 }else {
                 	//ACTUALIZACION
@@ -161,6 +163,7 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
                     	Notification.show("El nombre de la Marca es requerido, favor ingresar la información");
                     }else {
                     	controlador.actualizarMarca(marcarepuesto);
+                    	Notification.show("Datos actualizados");
                     }
                 }
 
@@ -195,7 +198,7 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
         return icon;
     }
 
-	
+	/*
 	@Override
     public void beforeEnter(BeforeEnterEvent event) {
 		Optional<Long> marcarepuestoId = event.getRouteParameters().get(MARCAREPUESTO_ID).map(Long::parseLong);
@@ -209,7 +212,7 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
         	}
         } 
     }
-	
+	*/
 	
     private void createEditorLayout(SplitLayout splitLayout) {
         Div editorLayoutDiv = new Div();
@@ -272,7 +275,7 @@ public class MarcaRepuestosView extends Div implements BeforeEnterObserver, Marc
 		refreshGrid();
 		consultarMarcas();
 		UI.getCurrent().navigate(MarcaRepuestosView.class);
-;    	
+		Notification.show("Datos actualizados");
     }
     
     
