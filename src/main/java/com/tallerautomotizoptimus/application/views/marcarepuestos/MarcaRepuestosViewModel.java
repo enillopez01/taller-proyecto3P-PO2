@@ -8,6 +8,6 @@ public interface MarcaRepuestosViewModel {
 
 	void refrescarGridMarca(List<MarcaRepuesto> marca);
 	void msjCreacionMarca(MarcaRepuesto nuevo, String mensaje);
-	void msjActualizarMarca(MarcaRepuesto nuevo, String mensaje);
-	void msjEliminarMarca(MarcaRepuesto nuevo, String mensaje);
+	void msjActualizarMarca(MarcaRepuesto actualizar, String mensaje);
+	void msjEliminarMarca(MarcaRepuesto eliminar, String mensaje);
 }

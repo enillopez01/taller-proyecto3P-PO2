@@ -46,7 +46,6 @@ public class DataBaseRepositoryImpl {
 		}
 	}
 	
-	
 	public boolean crearRepuesto(Repuesto nuevo) throws IOException {
 		Call<ResponseBody> call = client.getDatabaseService().crearRepuesto(nuevo);
 		Response<ResponseBody> respuesta = call.execute();
@@ -61,7 +60,6 @@ public class DataBaseRepositoryImpl {
 		
 		return respuesta.isSuccessful();
 	}
-	
 	
 	public boolean eliminarRepuesto(Integer idRepuesto) throws IOException {
 		Call<ResponseBody> call = client.getDatabaseService().eliminarRepuesto(idRepuesto);
@@ -93,8 +91,8 @@ public class DataBaseRepositoryImpl {
 		}
 		
 	
-	public boolean actualizarMarca(MarcaRepuesto nuevo) throws IOException {
-		Call<ResponseBody> call = client.getDatabaseService().actualizarMarca(nuevo);
+	public boolean actualizarMarca(MarcaRepuesto actualizar) throws IOException {
+		Call<ResponseBody> call = client.getDatabaseService().actualizarMarca(actualizar);
 		Response<ResponseBody> respuesta = call.execute();
 		
 		return respuesta.isSuccessful();
@@ -108,5 +106,38 @@ public class DataBaseRepositoryImpl {
 	}
 	
 	//FINAL CRUD TABLA MARCAREPUESTOS
+	
+	// CRUD TABLA ALMACEN
+	public AlmacenResponse consultarAlmacen() throws IOException {
+		Call<AlmacenResponse> call = client.getDatabaseService().listarAlmacen();
+		Response<AlmacenResponse> respuesta = call.execute();
+		if(respuesta.isSuccessful()) {
+			return respuesta.body();
+		}else {
+			return null;
+		}
+	}
+	
+	public boolean crearAlmacen(Almacen nuevo) throws IOException {
+		Call<ResponseBody> call = client.getDatabaseService().crearAlmacen(nuevo);
+		Response<ResponseBody> respuesta = call.execute();
+		
+		return respuesta.isSuccessful();
+	}
+	
+	public boolean actualizarAlmacen(Almacen actualizar) throws IOException {
+		Call<ResponseBody> call = client.getDatabaseService().actualizarAlmacen(actualizar);
+		Response<ResponseBody> respuesta = call.execute();
+		
+		return respuesta.isSuccessful();
+	}
+	
+	public boolean eliminarAlmacen(Integer idAlmacen) throws IOException {
+		Call<ResponseBody> call = client.getDatabaseService().eliminarMarca(idAlmacen);
+		Response<ResponseBody> respuesta = call.execute();
+		
+		return respuesta.isSuccessful();
+	}
+	//FINAL CRUD TABLA ALMACEN
 	
 }

@@ -44,11 +44,11 @@ public class MarcaRepuestosInteractorImpl implements MarcaRepuestosInteractor {
 
 
 	@Override
-	public void actualizarMarca(MarcaRepuesto nuevo) {
+	public void actualizarMarca(MarcaRepuesto actualizar) {
 		try {
-			  boolean actualizar = this.modelo.actualizarMarca(nuevo);
-			  String mensaje = actualizar?"Campo actualizado con exito":"El Campo no pudo ser actualizado";
-		      this.vista.msjActualizarMarca(nuevo, mensaje);
+			  boolean actualiza = this.modelo.actualizarMarca(actualizar);
+			  String mensaje = actualiza?"Campo actualizado con exito":"El Campo no pudo ser actualizado";
+		      this.vista.msjActualizarMarca(actualizar, mensaje);
 		 }catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -68,6 +68,21 @@ public class MarcaRepuestosInteractorImpl implements MarcaRepuestosInteractor {
 		
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }

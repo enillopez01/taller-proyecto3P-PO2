@@ -1,5 +1,7 @@
 package com.tallerautomotizoptimus.application.data.service;
 
+import com.tallerautomotizoptimus.application.data.entity.Almacen;
+import com.tallerautomotizoptimus.application.data.entity.AlmacenResponse;
 import com.tallerautomotizoptimus.application.data.entity.MarcaRepuesto;
 import com.tallerautomotizoptimus.application.data.entity.MarcaRepuestoResponse;
 import com.tallerautomotizoptimus.application.data.entity.Repuesto;
@@ -46,8 +48,6 @@ public interface DataBaseRepository {
 	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/repuestos")
 	Call<ResponseBody> eliminarRepuesto(@Query("id") Integer id);
 	
-	
-	
 
 	//TBL_MARCAREPUESTOS
 	
@@ -70,15 +70,42 @@ public interface DataBaseRepository {
 		"User-Agent: Retrofit-Sample-App"
 	})
 	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuestos")
-	Call<ResponseBody> actualizarMarca(@Body MarcaRepuesto nuevo);
+	Call<ResponseBody> actualizarMarca(@Body MarcaRepuesto actualizar);
 	
-	
-	@Headers({
+		@Headers({
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
 	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuestos")
 	Call<ResponseBody> eliminarMarca(@Query("id") Integer id);
 	
-	
+	//TBL_ALMACEN
+	@Headers({ 
+		"Accept: application/json", 
+		"User-Agent: Retrofit-Sample-App"
+	})
+	@GET("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	Call<AlmacenResponse> listarAlmacen();
+		
+	@Headers({ 
+		"Accept: application/json", 
+		"User-Agent: Retrofit-Sample-App"
+	})
+	@POST("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	Call<ResponseBody> crearAlmacen(@Body Almacen nuevo);
+
+	@Headers({ 
+		"Accept: application/json", 
+		"User-Agent: Retrofit-Sample-App"
+	})
+	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	Call<ResponseBody> actualizarAlmacen(@Body Almacen actualizar);
+			
+		
+	@Headers({
+		"Accept: application/json", 
+		"User-Agent: Retrofit-Sample-App"
+	})
+	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	Call<ResponseBody> eliminarAlmacen(@Query("id") Integer id);
 }

@@ -6,8 +6,8 @@ public interface MarcaRepuestosInteractor {
 	
 	void consultarMarcas();
 	void crearMarca(MarcaRepuesto nuevo);
-	void actualizarMarca(MarcaRepuesto nuevo);
-	void eliminarMarca(MarcaRepuesto nuevo);
+	void actualizarMarca(MarcaRepuesto actualizar);
+	void eliminarMarca(MarcaRepuesto eliminar);
 	
 
 }

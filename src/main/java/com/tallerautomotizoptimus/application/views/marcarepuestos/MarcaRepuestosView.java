@@ -17,6 +17,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.confirmdialog.ConfirmDialog;
 import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -44,7 +45,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "marcaRepuestos/:marcarepuestoID?/:action?(edit)", layout = MainLayout.class)
 @Uses(Icon.class)
 public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
-//BeforeEnterObserver, 	
+	//BeforeEnterObserver, 
 
     private static final long serialVersionUID = 1L;
 	private final String MARCAREPUESTO_ID = "marcarepuestoID";
@@ -54,6 +55,7 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
 
     //private NumberField idmarca;
     private TextField nombremarca;
+    private ComboBox<MarcaRepuesto> lmarca;
     
     private final Button cancel = new Button("Cancelar");
     private final Button save = new Button("Guardar");
@@ -79,7 +81,7 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
         grid.setColumnReorderingAllowed(true);
         grid.addColumn("idmarca").setAutoWidth(true).setHeader("Codigo Marca");
         grid.addColumn("nombremarca").setAutoWidth(true).setHeader("Nombre Marca");
-                grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
+        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
         // when a row is selected or deselected, populate form
         grid.asSingleSelect().addValueChangeListener(event -> {
@@ -154,7 +156,6 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
                     	Notification.show("El nombre de la Marca es requerido, favor ingresar la información");
                     }else {
                     	controlador.crearMarca(marcarepuesto);
-                    	Notification.show("Dato Creado con Exito");
                     }
                 }else {
                 	//ACTUALIZACION
@@ -163,7 +164,6 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
                     	Notification.show("El nombre de la Marca es requerido, favor ingresar la información");
                     }else {
                     	controlador.actualizarMarca(marcarepuesto);
-                    	Notification.show("Datos actualizados");
                     }
                 }
 
@@ -225,8 +225,13 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
         FormLayout formLayout = new FormLayout();
         //idmarca = new NumberField();
         nombremarca = new TextField("Nombre Marca");
-        formLayout.add(nombremarca);
 
+        lmarca = new ComboBox<>();
+        lmarca.setLabel("Listado Marcas");
+        lmarca.setItemLabelGenerator(MarcaRepuesto::getNombremarca);
+
+        
+        formLayout.add(nombremarca, lmarca);
         editorDiv.add(formLayout);
         createButtonLayout(editorLayoutDiv);
 
@@ -256,33 +261,36 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
 
     private void clearForm() {
         populateForm(null);
+        lmarca.setValue(null);
     }
 
     private void populateForm(MarcaRepuesto value) {
         this.marcarepuesto = value;
         if(value == null) {
-        	nombremarca.setValue(" ");	
+        	nombremarca.setValue(" ");
+        	lmarca.setValue(null);
         	
         	
         }else {
         	nombremarca.setValue(value.getNombremarca());
+        	lmarca.setAllowCustomValue(true);
+        	//lmarca.setValue(value.getNombremarca());
         }
     }
-
     
     private void actualizarPantalla() {
     	clearForm();
 		refreshGrid();
 		consultarMarcas();
 		UI.getCurrent().navigate(MarcaRepuestosView.class);
-		Notification.show("Datos actualizados");
+;    	
     }
-    
-    
+        
 	@Override
 	public void refrescarGridMarca(List<MarcaRepuesto> marca) {
 		Collection<MarcaRepuesto> collectionItems = marca;
 		grid.setItems(collectionItems);
+		lmarca.setItems(collectionItems);
 		this.marcas = marca;
 		
 	}

@@ -7,7 +7,7 @@ import com.tallerautomotizoptimus.application.views.clasificacionproductos.Clasi
 import com.tallerautomotizoptimus.application.views.fabricantevehiculo.FabricanteVehiculoView;
 import com.tallerautomotizoptimus.application.views.marcarepuestos.MarcaRepuestosView;
 import com.tallerautomotizoptimus.application.views.productos.RepuestosView;
-import com.tallerautomotizoptimus.application.views.reportes.ReportesView;
+import com.tallerautomotizoptimus.application.views.reportes.AlmacenView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.Footer;
@@ -57,14 +57,15 @@ public class MainLayout extends AppLayout {
         // For documentation, visit https://github.com/vaadin/vcf-nav#readme
         AppNav nav = new AppNav();
 
-        nav.addItem(new AppNavItem("Productos", RepuestosView.class, LineAwesomeIcon.CART_PLUS_SOLID.create()));
+        nav.addItem(new AppNavItem("Repuestos", RepuestosView.class, LineAwesomeIcon.CART_PLUS_SOLID.create()));
+        nav.addItem(new AppNavItem("Almacen", AlmacenView.class, LineAwesomeIcon.STORE_ALT_SOLID.create()));
         nav.addItem(new AppNavItem("Marca Repuestos", MarcaRepuestosView.class,
                 LineAwesomeIcon.CHEVRON_CIRCLE_DOWN_SOLID.create()));
         nav.addItem(new AppNavItem("Fabricante Vehiculo", FabricanteVehiculoView.class,
                 LineAwesomeIcon.CAR_SOLID.create()));
         nav.addItem(new AppNavItem("Clasificacion Productos", ClasificacionProductosView.class,
                 LineAwesomeIcon.TH_LIST_SOLID.create()));
-        nav.addItem(new AppNavItem("Reportes", ReportesView.class, LineAwesomeIcon.NEWSPAPER.create()));
+        
 
         return nav;
     }

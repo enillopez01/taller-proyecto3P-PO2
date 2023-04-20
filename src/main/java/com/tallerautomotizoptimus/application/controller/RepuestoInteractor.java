@@ -6,6 +6,6 @@ public interface RepuestoInteractor {
 	
 	void consultarRepuestos();
 	void crearRepuestos(Repuesto nuevo);
-	void actualizarRepuestos(Repuesto nuevo);
-	void eliminarRepuestos(Repuesto nuevo);
+	void actualizarRepuestos(Repuesto actualizar);
+	void eliminarRepuestos(Repuesto eliminar);
 }

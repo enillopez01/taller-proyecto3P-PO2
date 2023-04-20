@@ -2,7 +2,6 @@ package com.tallerautomotizoptimus.application.controller;
 
 import java.io.IOException;
 
-import com.tallerautomotizoptimus.application.data.entity.MarcaRepuestoResponse;
 import com.tallerautomotizoptimus.application.data.entity.Repuesto;
 import com.tallerautomotizoptimus.application.data.entity.RepuestoResponse;
 import com.tallerautomotizoptimus.application.data.service.DataBaseRepositoryImpl;
@@ -39,6 +38,7 @@ public class RepuestoInteractorImpl implements RepuestoInteractor {
 		}catch(IOException e){
 			e.printStackTrace();
 		}
+		
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class RepuestoInteractorImpl implements RepuestoInteractor {
 		
 	}
 
-	
+
 
 
 	
