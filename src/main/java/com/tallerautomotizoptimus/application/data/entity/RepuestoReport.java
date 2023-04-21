@@ -55,7 +55,10 @@ public class RepuestoReport implements JRDataSource{
 			return repuestos.get(counter).getNumeroserie();
 		}else if("Cantidad".equals(jrField.getName())){
 			return repuestos.get(counter).getCantidad();
+		}else if("Precio".equals(jrField.getName())){
+			return repuestos.get(counter).getPrecio();
 		}
+		
 		return "";
 	}
 	

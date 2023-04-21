@@ -4,6 +4,8 @@ public class MarcaRepuesto {
 
 	private int idmarca;
 	private String nombremarca;
+	private String clasifi;
+	
 	public int getIdmarca() {
 		return idmarca;
 	}
@@ -15,6 +17,12 @@ public class MarcaRepuesto {
 	}
 	public void setNombremarca(String nombremarca) {
 		this.nombremarca = nombremarca;
+	}
+	public String getClasifi() {
+		return clasifi;
+	}
+	public void setClasifi(String clasifi) {
+		this.clasifi = clasifi;
 	}
 	
 	

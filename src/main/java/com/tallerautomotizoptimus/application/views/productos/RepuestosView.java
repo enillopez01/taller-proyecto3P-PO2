@@ -300,14 +300,14 @@ public class RepuestosView extends Div implements  RepuestosViewModel {
         Div dollarPrefix1 = new Div();
         preciocosto = new NumberField();
         preciocosto.setLabel("Precio Costo");
-        preciocosto.setValue(0.0);
+        preciocosto.setValue(0.00);
         dollarPrefix1.setText("L");
         preciocosto.setPrefixComponent(dollarPrefix1);
         
         Div dollarPrefix = new Div();
         precio = new NumberField();
         precio.setLabel("Precio");
-        precio.setValue(0.0);
+        precio.setValue(0.00);
         dollarPrefix.setText("L");
         precio.setPrefixComponent(dollarPrefix);
         

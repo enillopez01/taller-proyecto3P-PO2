@@ -2,7 +2,9 @@ package com.tallerautomotizoptimus.application.views.marcarepuestos;
 
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -11,6 +13,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import com.tallerautomotizoptimus.application.controller.MarcaRepuestosInteractor;
 import com.tallerautomotizoptimus.application.controller.MarcaRepuestosInteractorImpl;
 import com.tallerautomotizoptimus.application.data.entity.MarcaRepuesto;
+import com.tallerautomotizoptimus.application.data.entity.MarcaRepuestoReport;
 import com.tallerautomotizoptimus.application.data.service.ReportGenerator;
 import com.tallerautomotizoptimus.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
@@ -25,6 +28,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.contextmenu.GridContextMenu;
 import com.vaadin.flow.component.grid.contextmenu.GridMenuItem;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.icon.Icon;
@@ -53,10 +57,10 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
 
     private final Grid<MarcaRepuesto> grid = new Grid<>(MarcaRepuesto.class, false);
 
-    //private NumberField idmarca;
+    private NumberField idmarca;
     private TextField nombremarca;
-    private ComboBox<MarcaRepuesto> lmarca;
-    
+    private TextField clasifi;
+        
     private final Button cancel = new Button("Cancelar");
     private final Button save = new Button("Guardar");
 
@@ -80,7 +84,8 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
         // Configure Grid
         grid.setColumnReorderingAllowed(true);
         grid.addColumn("idmarca").setAutoWidth(true).setHeader("Codigo Marca");
-        grid.addColumn("nombremarca").setAutoWidth(true).setHeader("Nombre Marca");
+        grid.addColumn("nombremarca").setAutoWidth(true).setHeader("Marca");
+        grid.addColumn("clasifi").setAutoWidth(true).setHeader("Clasificacion");
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
         // when a row is selected or deselected, populate form
@@ -151,6 +156,7 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
                     //CREACION
                     this.marcarepuesto = new MarcaRepuesto();
                     this.marcarepuesto.setNombremarca(nombremarca.getValue());
+                    this.marcarepuesto.setClasifi(clasifi.getValue());
                     
                     if(this.marcarepuesto.getNombremarca() == null) {
                     	Notification.show("El nombre de la Marca es requerido, favor ingresar la información");
@@ -160,6 +166,8 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
                 }else {
                 	//ACTUALIZACION
                 	this.marcarepuesto.setNombremarca(nombremarca.getValue());
+                	this.marcarepuesto.setClasifi(clasifi.getValue());
+                	
                 	if(this.marcarepuesto.getNombremarca() == null) {
                     	Notification.show("El nombre de la Marca es requerido, favor ingresar la información");
                     }else {
@@ -178,11 +186,22 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
         });
     }
     
-    
+
     private void generarReporte() {
-    	ReportGenerator generador = new ReportGenerator();
-    	
-    }
+		ReportGenerator generador = new ReportGenerator();
+		MarcaRepuestoReport datasource = new MarcaRepuestoReport();
+		datasource.setMarcarepuesto(marcas);
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("logo_dir", "talleroptimus-logo.png"); 
+		boolean generado = generador.generarReportePDF("ReporteMarcas", datasource, parameters );
+		if(generado) {
+			Anchor url = new Anchor(generador.getReportPath(), "Reporte");
+			url.setTarget("_blank");
+			Notification.show("Reporte Generado: "+generador.getReportPath(), 5000, Notification.Position.TOP_CENTER);
+		}else {
+			Notification.show("Ocurrió un problema al generar el reporte.");
+		}
+	}
     
 
     private void consultarMarcas() {
@@ -226,12 +245,10 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
         //idmarca = new NumberField();
         nombremarca = new TextField("Nombre Marca");
 
-        lmarca = new ComboBox<>();
-        lmarca.setLabel("Listado Marcas");
-        lmarca.setItemLabelGenerator(MarcaRepuesto::getNombremarca);
-
-        
-        formLayout.add(nombremarca, lmarca);
+        clasifi= new TextField();
+        clasifi.setLabel("Clasificacion");
+                
+        formLayout.add(nombremarca, clasifi);
         editorDiv.add(formLayout);
         createButtonLayout(editorLayoutDiv);
 
@@ -261,20 +278,18 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
 
     private void clearForm() {
         populateForm(null);
-        lmarca.setValue(null);
+        
     }
 
     private void populateForm(MarcaRepuesto value) {
         this.marcarepuesto = value;
         if(value == null) {
         	nombremarca.setValue(" ");
-        	lmarca.setValue(null);
-        	
-        	
+        	clasifi.setValue("");
+        	        	
         }else {
         	nombremarca.setValue(value.getNombremarca());
-        	lmarca.setAllowCustomValue(true);
-        	//lmarca.setValue(value.getNombremarca());
+        	clasifi.setValue(value.getClasifi());
         }
     }
     
@@ -290,7 +305,6 @@ public class MarcaRepuestosView extends Div implements MarcaRepuestosViewModel {
 	public void refrescarGridMarca(List<MarcaRepuesto> marca) {
 		Collection<MarcaRepuesto> collectionItems = marca;
 		grid.setItems(collectionItems);
-		lmarca.setItems(collectionItems);
 		this.marcas = marca;
 		
 	}

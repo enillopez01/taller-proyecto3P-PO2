@@ -4,7 +4,7 @@ public class Almacen {
 	
 	private int idalmacen;
 	private String nmrepuesto;
-	private String nombre;
+	private String alnombre;
 	private int cantstock;
 	private int minstock;
 	private int maxstock;
@@ -25,10 +25,10 @@ public class Almacen {
 		this.nmrepuesto = nmrepuesto;
 	}
 	public String getNombre() {
-		return nombre;
+		return alnombre;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.alnombre = nombre;
 	}
 	public int getCantstock() {
 		return cantstock;

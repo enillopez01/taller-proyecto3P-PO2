@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.1.final using JasperReports Library version 6.20.1-7584acb244139816654f64e2fd57a00d3e31921e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteMarcas" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="254affdd-312c-4907-8e77-7fed51f569e4">
+	<parameter name="logo_dir" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="Marca" class="java.lang.String"/>
+	<field name="Clasificacion" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="105" splitType="Stretch">
+			<frame>
+				<reportElement x="2" y="5" width="295" height="100" uuid="1f495263-8689-4bbe-a2d2-03048382af00"/>
+				<staticText>
+					<reportElement x="0" y="0" width="295" height="30" uuid="1b96a9ca-42ff-41f1-8e7f-fdf9c366189b"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial Rounded MT Bold" size="20"/>
+					</textElement>
+					<text><![CDATA[Taller Automotriz Optimus]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="30" width="295" height="40" uuid="4539fb84-607d-4e6c-a600-21e6514ea05a"/>
+					<textElement>
+						<font fontName="Arial Rounded MT Bold" size="12"/>
+					</textElement>
+					<text><![CDATA[Blvd. Los Andes, Media Cuadra Arriba del Edificio Azul con Rojo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="70" width="295" height="30" uuid="03bfa1c9-071a-4c4e-8cab-72284ee701f6"/>
+					<textElement>
+						<font fontName="Arial Rounded MT Bold" size="12"/>
+					</textElement>
+					<text><![CDATA[Tel. +504 2455-7817
+Tel. +504 9874-5025]]></text>
+				</staticText>
+			</frame>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement x="470" y="10" width="100" height="86" uuid="9ed86983-f91a-4b9a-87bf-a455015499a3"/>
+				<imageExpression><![CDATA[$P{logo_dir}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="0" width="572" height="19" backcolor="#8BC78A" uuid="db9ba942-6c10-46f2-87d6-3c9a7ebd47eb"/>
+				<graphicElement>
+					<pen lineColor="#FFFFFF"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="19" uuid="aa603417-9745-4bb3-aac1-28cab31f5aad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c8338083-b017-439b-9a3f-bf0ac331e446"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="0" width="104" height="19" uuid="32683126-1af0-4d7d-88f3-aea64f288bcf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4a6acde-c104-4535-bfca-c812bb241143"/>
+				</reportElement>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Clasificacion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="286" height="20" uuid="39f4e8ba-6fa6-4123-9a95-2b08633c8daf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c8338083-b017-439b-9a3f-bf0ac331e446"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="0" width="286" height="20" uuid="fcfedf48-6fb2-495a-ad99-cae2a45c52d6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4a6acde-c104-4535-bfca-c812bb241143"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Clasificacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="220" y="0" width="112" height="16" uuid="ef6c2848-52be-4d0f-9afd-aa17a0e00b9f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMM/dd/yyyy hh:mm a">
+				<reportElement x="0" y="0" width="120" height="20" uuid="2aa461ed-7bef-4ae4-8811-df2d41290348"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

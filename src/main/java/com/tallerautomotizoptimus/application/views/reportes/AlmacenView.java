@@ -1,10 +1,14 @@
 package com.tallerautomotizoptimus.application.views.reportes;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.tallerautomotizoptimus.application.controller.AlmacenInteractor;
 import com.tallerautomotizoptimus.application.data.entity.Almacen;
+import com.tallerautomotizoptimus.application.data.entity.AlmacenReport;
+import com.tallerautomotizoptimus.application.data.service.ReportGenerator;
 import com.tallerautomotizoptimus.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -17,6 +21,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.grid.contextmenu.GridContextMenu;
 import com.vaadin.flow.component.grid.contextmenu.GridMenuItem;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.icon.Icon;
@@ -44,7 +49,7 @@ public class AlmacenView extends Div implements AlmacenViewModel {
     
     private IntegerField idalmacen;
 	private TextField nmrepuesto;
-	private TextField nombre;
+	private TextField alnombre;
 	private IntegerField cantstock;
 	private IntegerField minstock;
 	private IntegerField maxstock;
@@ -147,6 +152,22 @@ public class AlmacenView extends Div implements AlmacenViewModel {
         
     }
 	
+	  private void generarReporte() {
+			ReportGenerator generador = new ReportGenerator();
+			AlmacenReport datasource = new AlmacenReport();
+			datasource.setAlmacen(almacenes);;
+			Map<String, Object> parameters = new HashMap<>();
+			parameters.put("logo_dir", "talleroptimus-logo.png"); 
+			boolean generado = generador.generarReportePDF("ReporteAlmacen", datasource, parameters );
+			if(generado) {
+				Anchor url = new Anchor(generador.getReportPath(), "Reporte");
+				url.setTarget("_blank");
+				Notification.show("Reporte Generado: "+generador.getReportPath(), 5000, Notification.Position.TOP_CENTER);
+			}else {
+				Notification.show("Ocurrió un problema al generar el reporte.");
+			}
+		}
+	
 	
 	private void consultarAlmacen() {
 		controlador.consultarAlmacen();
@@ -160,11 +181,6 @@ public class AlmacenView extends Div implements AlmacenViewModel {
         return icon;
     }
 
-	private void generarReporte() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private void createEditorLayout(SplitLayout splitLayout) {
         Div editorLayoutDiv = new Div();
         editorLayoutDiv.setClassName("editor-layout");
@@ -175,8 +191,8 @@ public class AlmacenView extends Div implements AlmacenViewModel {
 
         FormLayout formLayout = new FormLayout();
         
-        nombre = new TextField();
-        nombre.setLabel("Almacen");
+        alnombre = new TextField();
+        alnombre.setLabel("Almacen");
         
         nmrepuesto = new TextField();
         nmrepuesto.setLabel("Repuesto");
@@ -190,7 +206,7 @@ public class AlmacenView extends Div implements AlmacenViewModel {
         maxstock = new IntegerField();
         maxstock.setLabel("Stock Maximo");
         
-        formLayout.add(nombre, nmrepuesto, cantstock, minstock, maxstock);
+        formLayout.add(alnombre, nmrepuesto, cantstock, minstock, maxstock);
         editorDiv.add(formLayout);
         createButtonLayout(editorLayoutDiv);
 
@@ -227,13 +243,13 @@ public class AlmacenView extends Div implements AlmacenViewModel {
 	private void populateForm(Almacen value) {
 		this.almacen = value;
 		if(value == null) {
-			nombre.setValue("");
+			alnombre.setValue("");
 			nmrepuesto.setValue("");
 			cantstock.setValue(0);
 			minstock.setValue(0);
 			maxstock.setValue(0);
 		}else {
-			nombre.setValue(value.getNombre());
+			alnombre.setValue(value.getNombre());
 			nmrepuesto.setValue(value.getNmrepuesto());
 			cantstock.setValue(value.getCantstock());
 			minstock.setValue(value.getMinstock());
