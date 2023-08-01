@@ -24,28 +24,28 @@ public interface DataBaseRepository {
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@GET("/pls/apex/pav2_201610070128/tallervehiculo/repuestos")
+	@GET("/pls/apex/pav2_201610070128/tallervehiculo/repuesto")
 	Call<RepuestoResponse> listarRepuestos();
 
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@POST("/pls/apex/pav2_201610070128/tallervehiculo/repuestos")
+	@POST("/pls/apex/pav2_201610070128/tallervehiculo/repuesto")
 	Call<ResponseBody> crearRepuesto(@Body Repuesto nuevo);
 
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/repuestos")
+	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/repuesto")
 	Call<ResponseBody> actualizarRepuesto(@Body Repuesto nuevo);	
 	
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/repuestos")
+	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/repuesto")
 	Call<ResponseBody> eliminarRepuesto(@Query("id") Integer id);
 	
 
@@ -55,28 +55,28 @@ public interface DataBaseRepository {
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@GET("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuestos")
+	@GET("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuesto")
 	Call<MarcaRepuestoResponse> listarMarcaRepuestos();
 	
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@POST("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuestos")
+	@POST("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuesto")
 	Call<ResponseBody> crearMarca(@Body MarcaRepuesto nuevo);
 
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuestos")
+	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuesto")
 	Call<ResponseBody> actualizarMarca(@Body MarcaRepuesto actualizar);
 	
 		@Headers({
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuestos")
+	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/marcarepuesto")
 	Call<ResponseBody> eliminarMarca(@Query("id") Integer id);
 	
 	//TBL_ALMACEN
@@ -84,21 +84,21 @@ public interface DataBaseRepository {
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@GET("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	@GET("/pls/apex/pav2_201610070128/tallervehiculo/almacenes")
 	Call<AlmacenResponse> listarAlmacen();
 		
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@POST("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	@POST("/pls/apex/pav2_201610070128/tallervehiculo/almacenes")
 	Call<ResponseBody> crearAlmacen(@Body Almacen nuevo);
 
 	@Headers({ 
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	@PUT("/pls/apex/pav2_201610070128/tallervehiculo/almacenes")
 	Call<ResponseBody> actualizarAlmacen(@Body Almacen actualizar);
 			
 		
@@ -106,6 +106,6 @@ public interface DataBaseRepository {
 		"Accept: application/json", 
 		"User-Agent: Retrofit-Sample-App"
 	})
-	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/almacen")
+	@DELETE("/pls/apex/pav2_201610070128/tallervehiculo/almacenes")
 	Call<ResponseBody> eliminarAlmacen(@Query("id") Integer id);
 }

@@ -76,13 +76,13 @@ Tel. +504 9874-5025]]></text>
 	</columnHeader>
 	<detail>
 		<band height="26" splitType="Stretch">
-			<textField>
+			<textField textAdjust="ScaleFont">
 				<reportElement x="0" y="0" width="286" height="20" uuid="39f4e8ba-6fa6-4123-9a95-2b08633c8daf">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c8338083-b017-439b-9a3f-bf0ac331e446"/>
 				</reportElement>
 				<textFieldExpression><![CDATA[$F{Marca}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField textAdjust="ScaleFont">
 				<reportElement x="286" y="0" width="286" height="20" uuid="fcfedf48-6fb2-495a-ad99-cae2a45c52d6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a4a6acde-c104-4535-bfca-c812bb241143"/>
 				</reportElement>

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tallerautomotizoptimus.application.controller.AlmacenInteractor;
+import com.tallerautomotizoptimus.application.controller.AlmacenInteractorImpl;
 import com.tallerautomotizoptimus.application.data.entity.Almacen;
 import com.tallerautomotizoptimus.application.data.entity.AlmacenReport;
 import com.tallerautomotizoptimus.application.data.service.ReportGenerator;
@@ -65,6 +66,7 @@ public class AlmacenView extends Div implements AlmacenViewModel {
 	public AlmacenView() {
     	addClassNames("almacen-view");
     	
+    	controlador =  new AlmacenInteractorImpl(this);
     	
         SplitLayout splitLayout = new SplitLayout();
         splitLayout.setSplitterPosition(75);
@@ -120,7 +122,7 @@ public class AlmacenView extends Div implements AlmacenViewModel {
                 dialog.setConfirmButtonTheme("error primary");
 
                 dialog.addConfirmListener(eventDialog -> {
-                	//controlador.eliminarMarca(almacenEliminar);
+                	controlador.eliminarAlmacen(almacenEliminar);
                 	actualizarPantalla();
                 });
         		
@@ -137,7 +139,7 @@ public class AlmacenView extends Div implements AlmacenViewModel {
         eliminar.addComponentAsFirst(createIcon(VaadinIcon.TRASH));
         
         
-        //consultarAlmacen();
+        consultarAlmacen();
         
         cancel.addClickListener(e -> {
             clearForm();

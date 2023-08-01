@@ -105,7 +105,7 @@ Tel. +504 9874-5025]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="116" height="19" uuid="b796fa85-8e3a-4ba2-80da-6f57ab3e6ab0">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ddfb1b04-cbb2-4563-ba50-b0090afe758a"/>
